@@ -1,0 +1,48 @@
+## Given that we were able to create a Caesar Cipher, let's use a different operation. We'll "XOR" (in Python, ^ ) a given number into each letter to produce a different number, and then we'l use that number to produce a letter instead.
+
+## Write a function that takes a string to encrypt and the xor value to encrypt it with.
+
+
+# Some tips
+# ord('a') -> 97
+# chr(97) -> 'a'
+# ord(chr(x)) == x
+#      10001^00101 == 10100
+#print(17   ^    5) # Should be 20
+
+## Note that not all characters will be nice alphabet characters - some printed to the terminal will be ugly
+
+
+## Stretch: instead of encoding with a single number, encode with a list of numbers.
+## Further stretch: Encode with a string instead of a list of numbers
+
+def xor_cipher(input_string, encoding_number):
+  # Create an output string. It's initially empty, but
+  # we will add one encoded letter to it once per letter
+  # in `input_string`.
+  output_string = ''
+  # Get characters one at a time from a string.
+  # 'abc' -> 'a' then 'b' then 'c'
+  for character in input_string:
+    # Convert the character into a number so we can xor
+    # it.
+    old_character_as_num = ord(character)
+    # Get the new number by xor-ing it with the
+    # `encoding_number`.
+    new_character_as_num = old_character_as_num ^ encoding_number
+    # Convert back into a character
+    new_character = chr(new_character_as_num)
+    # Remember to add it to the output!
+    output_string += new_character
+  return output_string
+
+print(xor_cipher('cat', 5)) # Should be 'fdq'
+
+test_value = 'random string'
+test_number = 311
+encoded_val = xor_cipher(test_value, test_number)
+decoded_val = xor_cipher(encoded_val, test_number)
+if decoded_val == test_value:
+  print(f'Encrypted {test_value!r} with xor correctly!')
+
+
